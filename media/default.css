@@ -1,0 +1,90 @@
+body {
+	background-color: #efefef;
+}
+
+div.container {
+	background-color: #fff;
+	margin-top: 50px;
+	padding-bottom: 20px;
+}
+
+div.page_header {
+	background-color: #ffc;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+
+div.page_header h2 {
+	margin-bottom: 0em !important;
+}
+
+#boxd {
+	display: none;
+	position: absolute;
+	top: 0;
+	border: 1px solid orange;
+	border-top: none;
+	padding: 2px;
+	background-color: #FFDCA8;
+	width: 100px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	text-align: center;
+}
+
+.dragging {
+}
+
+div.section {
+	position: relative;
+}
+	div.section .drag_shadow {
+		display: none;
+	}
+	div.section .drag_shadow_top {
+		background: transparent url(/site_media/images/drag_shadow.png) repeat-x top left;
+		height: 12px;
+	}
+	div.section .drag_shadow_bottom {
+		background: transparent url(/site_media/images/drag_shadow.png) repeat-x bottom left;
+		height: 12px;
+	}
+	div.section div.section_body {
+		padding: 10px 15px 0px 15px;
+	}
+	div.section div.control {
+		position: absolute;
+		left: -40px;
+		top: 8px;
+		width: 40px;
+		background-color: #fff;
+		padding: 4px 0px 4px 8px;
+		font-size: 8pt;
+		-webkit-border-top-left-radius: 2px;
+		-webkit-border-bottom-left-radius: 2px;
+	}
+		div.section div.control img.handle {
+			margin-left: 2px;
+			position: relative;
+			bottom: -2px;
+		}
+		div.section div.control img.handle:hover {
+			cursor: move;
+		}
+
+form.section_edit_form label {
+	display: none;
+}
+
+form.section_edit_form button {
+	float: none;
+	display: inline;
+}
+
+form.section_edit_form button.negative {
+	line-height: 18px;
+}
+
+form p {
+	margin-bottom: 0;
+}

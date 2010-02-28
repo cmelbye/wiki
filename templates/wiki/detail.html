@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page_header">
+	<h2>{{ page.title }} <img src="/site_media/images/ajax-loader.gif" id="loader" style="display: none;" /></h2>
+</div>
+
+<div id="sections">
+
+{% for section in sections %}
+
+<div class="section" id="section_{{ section.id }}">
+
+{% include "wiki/section.html" %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block endbody %}
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('div.section div.control').hide();
+	
+	$('#sections').sortable({
+		axis: 'y',
+		opacity: 0.9,
+		cursor: 'move',
+		cursorAt: 'right',
+		handle: '.handle',
+		tolerance: 'pointer',
+		start: function(event, ui) {
+			ui.item.addClass('dragging');
+			ui.item.find('.drag_shadow').show();
+		},
+		update: function (event, ui) {
+			ui.item.removeClass('dragging');
+			ui.item.find('.drag_shadow').hide();
+			
+			var order = $("#sections").sortable('serialize');
+			$.ajax({url: "/wiki/ajax/process_sections/?"+order});
+		}
+	});
+	
+	$('div.section').live('mouseenter', function () {
+		$.doTimeout('controlfade');
+		$('div.section div.control').hide();
+		$(this).children('div.control').show();
+	});
+	
+	$('div.section').live('mouseleave', function () {
+		var this_control = $(this).children('div.control');
+		$.doTimeout('controlfade', 500, function () {
+			this_control.fadeOut();
+		});
+	});
+	
+	$('div.section div.control').live('click', function () {
+		var section_id = $(this).parent().attr('id').split("_")[1];
+		$(this).parent().load("/wiki/ajax/section_edit/?section_id=" + section_id);
+	});
+	
+	$('form.section_edit_form').live('submit', function () {
+		var section_id = $(this).parent().parent().attr('id').split("_")[1];
+		
+		$.ajax({
+			url: "/wiki/ajax/section_edit/?section_id=" + section_id,
+			type: "POST",
+			data: $(this).serialize(),
+			context: this,
+			success: function(data) {
+				$(this).parent().parent().html(data);
+			}
+		});
+		
+		return false;
+	});
+	
+	$('button.section_edit_cancel').live('click', function () {
+		var section_id = $(this).parent().parent().attr('id').split("_")[1];
+		
+		$.ajax({
+			url: "/wiki/ajax/show_section/?section_id=" + section_id,
+			type: "GET",
+			context: this,
+			success: function(data) {
+				$(this).parent().parent().html(data);
+			}
+		});
+	});
+});
+</script>
+
+{% endblock %}

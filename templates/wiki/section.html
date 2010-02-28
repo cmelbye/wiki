@@ -1,0 +1,16 @@
+{% load markup %}
+<div class="drag_shadow_top drag_shadow"></div>
+
+<div class="control">
+	<a href="javascript:void();">Edit</a> <img src="/site_media/images/drag_handle.gif" class="handle" />
+</div>
+
+<div class="section_body">
+	<h3>{{ section.title }}</h3>
+	
+	<div class="section_text">
+		{{ section.text|markdown }}
+	</div>
+</div>
+
+<div class="drag_shadow_bottom drag_shadow"></div>
