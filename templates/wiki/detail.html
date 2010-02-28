@@ -39,10 +39,11 @@ $(document).ready(function () {
 			ui.item.addClass('dragging');
 			ui.item.find('.drag_shadow').show();
 		},
-		update: function (event, ui) {
+		stop: function(event, ui) {
 			ui.item.removeClass('dragging');
 			ui.item.find('.drag_shadow').hide();
-			
+		},
+		update: function (event, ui) {
 			var order = $("#sections").sortable('serialize');
 			$.ajax({url: "/wiki/ajax/process_sections/?"+order});
 		}
